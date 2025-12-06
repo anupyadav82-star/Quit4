@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quit Tobacco Journey</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Fonts + Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  <style>
+    /* ================= ROOT (themes + font) ================= */
+    :root {
+      --bg-1: #020711;
+      --bg-2: #07111e;
+      --bg-3: #0c1b2f;
+
+      --card-bg: rgba(255,255,255,0.08);
+      --card-border: rgba(255,255,255,0.16);
+      --text-main: #f9fafb;
+      --text-muted: #94a3b8;
+      --accent: #2cff8d;
+      --accent-strong: #16c269;
+
+      --font-scale: 1;
+    }
+
+    .theme-mint {
+      --bg-1: #eefbf5;
+      --bg-2: #dff7eb;
+      --bg-3: #c9f2df;
+      --text-main: #06281f;
+      --text-muted: #4e7865;
+      --card-bg: rgba(255,255,255,0.75);
+      --card-border: rgba(0,0,0,0.08);
+    }
+
+    .theme-sand {
+      --bg-1: #fcf2e3;
+      --bg-2: #f2e2cd;
+      --bg-3: #e8d2b7;
+      --text-main: #3d2e1b;
+      --text-muted: #7a6a55;
+      --card-bg: rgba(255,255,255,0.8);
+      --card-border: rgba(0,0,0,0.08);
+    }
+
+    .theme-sky {
+      --bg-1: #f4fbff;
+      --bg-2: #e4f4ff;
+      --bg-3: #d4eeff;
+      --text-main: #142a3a;
+      --text-muted: #527386;
+      --card-bg: rgba(255,255,255,0.8);
+      --card-border: rgba(0,0,0,0.08);
+    }
+
+    /* ================= GLOBAL ================= */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top, var(--bg-1), var(--bg-2), var(--bg-3));
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text-main);
+      font-size: calc(16px * var(--font-scale));
+      user-select: none;
+    }
+
+    .container {
+      padding: 20px;
+      padding-bottom: 120px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .screen {
+      display: none;
+    }
+    .screen.show {
+      display: block;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border-radius: 22px;
+      border: 1px solid var(--card-border);
+      padding: 18px 18px 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.4);
+    }
+
+    h2, h3 {
+      margin: 0 0 6px;
+    }
+
+    p {
+      margin: 4px 0;
+    }
+
+    .badge-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .badge-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .badge-text {
+      letter-spacing: 3px;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .quote {
+      border-left: 3px solid var(--accent);
+      padding-left: 10px;
+      color: var(--text-muted);
+      font-size: calc(13px * var(--font-scale));
+      margin-top: 8px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 14px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #041814;
+      font-weight: 600;
+      font-size: calc(15px * var(--font-scale));
+      margin-top: 14px;
+      box-shadow: 0 0 18px rgba(44,255,141,0.5);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn:active {
+      transform: translateY(1px) scale(0.99);
+      box-shadow: 0 0 10px rgba(44,255,141,0.4);
+    }
+
+    .btn-small {
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: rgba(0,0,0,0.12);
+      color: var(--accent);
+      font-size: calc(12px * var(--font-scale));
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      margin: 4px 4px 0 0;
+    }
+
+    input {
+      width: 100%;
+      padding: 9px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(148,163,184,0.5);
+      background: rgba(15,23,42,0.7);
+      color: var(--text-main);
+      font-size: calc(14px * var(--font-scale));
+      margin-bottom: 8px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(44,255,141,0.5);
+    }
+
+    label {
+      font-size: calc(12px * var(--font-scale));
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .stats-row {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px 12px;
+      margin-top: 6px;
+    }
+
+    .stat-pill {
+      flex: 1 1 45%;
+      padding: 8px 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(148,163,184,0.5);
+      font-size: calc(12px * var(--font-scale));
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+      font-size: calc(11px * var(--font-scale));
+    }
+    .stat-value {
+      font-size: calc(16px * var(--font-scale));
+      font-weight: 600;
+    }
+
+    /* streak glow on days card */
+    .streak-glow {
+      box-shadow: 0 0 20px rgba(44,255,141,0.5);
+      border-color: rgba(44,255,141,0.8);
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 10px 4px 12px;
+      background: rgba(3,7,18,0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(148,163,184,0.35);
+      display: flex;
+      justify-content: space-around;
+      z-index: 20;
+    }
+
+    .nav-item {
+      text-align: center;
+      font-size: 10px;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      min-width: 50px;
+    }
+
+    .nav-icon {
+      width: 22px;
+      height: 22px;
+    }
+
+    .nav-label {
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .nav-item.active-tab {
+      color: var(--accent);
+      text-shadow: 0 0 10px var(--accent);
+    }
+
+    .nav-item.active-tab .nav-icon {
+      transform: translateY(-1px);
+    }
+
+    /* Reminder toast */
+    .reminder-toast {
+      position: fixed;
+      bottom: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 520px;
+      width: calc(100% - 40px);
+      background: rgba(15,23,42,0.92);
+      color: var(--text-main);
+      border-radius: 999px;
+      padding: 8px 14px;
+      border: 1px solid rgba(148,163,184,0.6);
+      font-size: calc(11px * var(--font-scale));
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      z-index: 30;
+    }
+
+    .reminder-toast.show-toast {
+      display: flex;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .reminder-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    .close-toast {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 400px) {
+      .card {
+        padding: 16px;
+      }
+      .stats-row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Reminder Toast -->
+  <div id="reminderToast" class="reminder-toast">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span class="reminder-dot"></span>
+      <span id="reminderText"></span>
+    </div>
+    <button class="close-toast" onclick="hideReminder()">✕</button>
+  </div>
+
+  <!-- ================= SCREEN: WELCOME ================= -->
+  <div id="welcomeScreen" class="screen show">
+    <div class="container">
+      <div class="card">
+        <div class="badge-row">
+          <div class="badge-dot"></div>
+          <div class="badge-text">JAI SAI NATH</div>
+        </div>
+        <h2 style="font-size:calc(26px*var(--font-scale));line-height:1.4;">
+          I am free from <span class="highlight">nicotine</span> “disease”
+        </h2>
+        <p style="color:var(--text-muted);margin-bottom:6px;">
+          One day • One decision • One powerful story
+        </p>
+        <p class="quote">
+          “Har naya din ek fresh start hai. Aaj se aap apne body, mind aur future ko respect kar rahe ho.”
+        </p>
+        <button id="startBtn" class="btn">
+          <i data-feather="arrow-right"></i>
+          <span>Enter your journey</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SCREEN: HOME (TRACKER) ================= -->
+  <div id="homeScreen" class="screen">
+    <div class="container">
+      <div id="streakCard" class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <h3>Quit Journey</h3>
+            <p id="dayLabel" style="font-size:calc(20px*var(--font-scale));font-weight:600;">Day 0</p>
+            <p style="color:var(--text-muted);font-size:calc(12px*var(--font-scale));">Nicotine-free progress</p>
+          </div>
+          <div style="text-align:right;font-size:11px;color:var(--text-muted);">
+            <div>Last update</div>
+            <div id="lastUpdated">–</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Your stats</h3>
+        <div class="stats-row">
+          <div class="stat-pill">
+            <div class="stat-label">Days free</div>
+            <div class="stat-value" id="daysFree">0</div>
+          </div>
+          <div class="stat-pill">
+            <div class="stat-label">Health gained</div>
+            <div class="stat-value"><span id="healthHours">0h</span> <span id="healthMinutes">0m</span></div>
+          </div>
+          <div class="stat-pill">
+            <div class="stat-label">Money saved</div>
+            <div class="stat-value">₹<span id="moneySaved">0</span></div>
+          </div>
+          <div class="stat-pill">
+            <div class="stat-label">Urges handled</div>
+            <div class="stat-value" id="urgesWon">0</div>
+          </div>
+        </div>
+
+        <button id="shareBtn" class="btn" style="margin-top:14px;">
+          <i data-feather="share-2"></i>
+          <span>Share my progress</span>
+        </button>
+      </div>
+
+      <div class="card">
+        <h3>Quit plan</h3>
+        <label for="quitDate">Quit date</label>
+        <input id="quitDate" type="date" />
+
+        <label for="dailySpend">Daily spend (₹)</label>
+        <input id="dailySpend" type="number" min="0" />
+
+        <label for="healthPerDay">Health gain / day (minutes)</label>
+        <input id="healthPerDay" type="number" min="1" />
+
+        <button id="savePlan" class="btn">
+          <i data-feather="save"></i>
+          <span>Save plan</span>
+        </button>
+      </div>
+
+      <div class="card">
+        <h3>Today’s mental booster</h3>
+        <p id="dailyQuote" style="color:var(--text-muted);font-size:calc(13px*var(--font-scale));"></p>
+        <button id="newQuoteBtn" class="btn-small">
+          <i data-feather="refresh-cw" style="width:14px;height:14px;"></i>
+          <span>New line</span>
+        </button>
+        <button id="urgeBtnHome" class="btn-small" style="float:right;">
+          <i data-feather="check-circle" style="width:14px;height:14px;"></i>
+          <span>I beat an urge</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SCREEN: URGE MASTER ================= -->
+  <div id="urgeScreen" class="screen">
+    <div class="container">
+      <div class="card">
+        <h3>Urge control</h3>
+        <p style="color:var(--text-muted);font-size:calc(13px*var(--font-scale));">
+          Ye bas ek signal hai, hukm nahi. Aapka decision zyada powerful hai.
+        </p>
+        <button id="urgeBtn" class="btn">
+          <i data-feather="shield"></i>
+          <span>I beat an urge</span>
+        </button>
+      </div>
+
+      <div class="card">
+        <h3>Quick tools</h3>
+        <p>• 10-second deep breathing (4 in • 4 hold • 4 out)</p>
+        <p>• Seedha baitho, chest open karo, body ko “safe” ka signal do</p>
+        <p>• Thanda pani dheere dheere pee lo</p>
+        <p>• Bolo: <span class="highlight">“Ye sirf purani aadat ka signal hai, koi zarurat nahi.”</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SCREEN: AWARENESS ================= -->
+  <div id="awarenessScreen" class="screen">
+    <div class="container">
+      <div class="card">
+        <h3>Chemicals in gutkha / tobacco</h3>
+        <p>• <b>Nicotine</b> – brain ko hijack karne wala addictive signal.</p>
+        <p>• <b>Supari (areca nut)</b> – Group 1 carcinogen (cancer risk high).</p>
+        <p>• <b>TSNAs</b> – sabse dangerous cancer chemicals.</p>
+        <p>• <b>Formaldehyde</b> – dead body preserve karne me use hota hai.</p>
+        <p>• <b>Lead, cadmium, arsenic</b> – heavy metals, kidney & nerve damage.</p>
+        <p>• <b>Chuna</b> – mouth lining ko jala kar absorption aur fast karta hai.</p>
+      </div>
+
+      <div class="card">
+        <h3>Health impact</h3>
+        <p>• Mouth, tongue aur throat ke zakhm jo theek nahi hote.</p>
+        <p>• White / red patches jo cancer ka shuruat ho sakte hain.</p>
+        <p>• BP high, heart par extra load.</p>
+        <p>• Anxiety, chidhchidhapan, mood swings.</p>
+        <p>• Teeth ka colour black, smell bad, gums damage.</p>
+      </div>
+
+      <div class="card">
+        <h3>Healing timeline after quit</h3>
+        <p>• 20 minutes: blood pressure normal ki taraf.</p>
+        <p>• 24 hours: nicotine body se nikalne lagta hai.</p>
+        <p>• 2 weeks: energy aur stamina clearly better.</p>
+        <p>• 3 months: breathing aur walk karna easy.</p>
+        <p>• 1–5 saal: heart attack risk strong tarike se kam.</p>
+        <p>• 10 saal: mouth / throat cancer ka risk kaafi kam.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SCREEN: MIND GYM ================= -->
+  <div id="mindScreen" class="screen">
+    <div class="container">
+      <div class="card">
+        <h3>Affirmations</h3>
+        <p>• “Main kisi bhi packet se zyada strong hoon.”</p>
+        <p>• “Har urge par ‘no’ bol kar main apna brain rewire kar raha hoon.”</p>
+        <p>• “Stress ka solution zehar nahi, clarity hai.”</p>
+      </div>
+
+      <div class="card">
+        <h3>Visualization</h3>
+        <p>• Apne aap ko 6 mahine baad imagine karo – saaf skin, saaf breath, strong self-respect.</p>
+        <p>• Wo version already possible hai, sirf aaj ke decisions se.</p>
+      </div>
+
+      <div class="card">
+        <h3>Stress reset (30 seconds)</h3>
+        <p>1. Aankh band karo.</p>
+        <p>2. Saans andar… 4 count.</p>
+        <p>3. Rok ke rakho… 4 count.</p>
+        <p>4. Saans bahar… 4 count.</p>
+        <p>5. Dimag me bolo: <span class="highlight">“Ye wave bhi chali jayegi.”</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SCREEN: HEALTH RECOVERY ================= -->
+  <div id="healthScreen" class="screen">
+    <div class="container">
+      <div class="card">
+        <h3>Lungs & heart</h3>
+        <p>• Phlegm / balgam kam hota hai.</p>
+        <p>• Stairs chadhne me kam thakan.</p>
+        <p>• Heart ko clean blood milna start.</p>
+      </div>
+      <div class="card">
+        <h3>Appearance</h3>
+        <p>• Honth aur daant ka colour dhire dhire normal.</p>
+        <p>• Skin me blood flow better, glow wapas.</p>
+      </div>
+      <div class="card">
+        <h3>Mind & mood</h3>
+        <p>• Mood swings kam.</p>
+        <p>• Real energy, nakli booster nahi.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SCREEN: SETTINGS ================= -->
+  <div id="settingsScreen" class="screen">
+    <div class="container">
+      <div class="card">
+        <h3>Font size</h3>
+        <button class="btn-small" onclick="setFont(0.9)">Small</button>
+        <button class="btn-small" onclick="setFont(1)">Medium</button>
+        <button class="btn-small" onclick="setFont(1.15)">Large</button>
+      </div>
+
+      <div class="card">
+        <h3>Theme</h3>
+        <button class="btn-small" onclick="setTheme('default')">Dark glass</button>
+        <button class="btn-small" onclick="setTheme('mint')">Mint light</button>
+        <button class="btn-small" onclick="setTheme('sand')">Sand gold</button>
+        <button class="btn-small" onclick="setTheme('sky')">Sky light</button>
+      </div>
+
+      <div class="card">
+        <h3>Data</h3>
+        <button class="btn-small" onclick="resetJourney()">
+          <i data-feather="trash-2" style="width:14px;height:14px;"></i>
+          <span>Reset journey</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= NAVBAR ================= -->
+  <div class="navbar">
+    <div class="nav-item active-tab" data-target="homeScreen" onclick="switchTab('homeScreen', this)">
+      <i data-feather="home" class="nav-icon"></i>
+      <span class="nav-label">Home</span>
+    </div>
+    <div class="nav-item" data-target="urgeScreen" onclick="switchTab('urgeScreen', this)">
+      <i data-feather="activity" class="nav-icon"></i>
+      <span class="nav-label">Urge</span>
+    </div>
+    <div class="nav-item" data-target="awarenessScreen" onclick="switchTab('awarenessScreen', this)">
+      <i data-feather="alert-circle" class="nav-icon"></i>
+      <span class="nav-label">Awareness</span>
+    </div>
+    <div class="nav-item" data-target="mindScreen" onclick="switchTab('mindScreen', this)">
+      <i data-feather="cpu" class="nav-icon"></i>
+      <span class="nav-label">Mind gym</span>
+    </div>
+    <div class="nav-item" data-target="healthScreen" onclick="switchTab('healthScreen', this)">
+      <i data-feather="heart" class="nav-icon"></i>
+      <span class="nav-label">Health</span>
+    </div>
+    <div class="nav-item" data-target="settingsScreen" onclick="switchTab('settingsScreen', this)">
+      <i data-feather="settings" class="nav-icon"></i>
+      <span class="nav-label">Settings</span>
+    </div>
+  </div>
+
+  <script>
+    feather.replace();
+
+    const STORAGE_QUIT = "qt_quit_date";
+    const STORAGE_SPEND = "qt_daily_spend";
+    const STORAGE_HEALTH = "qt_health_minutes";
+    const STORAGE_URGES = "qt_urges";
+    const STORAGE_FONT = "qt_font";
+    const STORAGE_THEME = "qt_theme";
+
+    let currentDays = 0;
+    let currentMoney = 0;
+
+    const QUOTES = [
+      "Nicotine aapko relax nahi karta, pehle tension create karta hai phir thoda sa hata kar dhokha deta hai.",
+      "Har baar aap 'no' bolte ho, aapka brain thoda aur free hota hai.",
+      "Ye signal kuch minute ka hai, aapki freedom poori life ki.",
+      "Old habit ki awaaz jitni loud ho, aapka decision usse zyada powerful hai.",
+      "Stress solve karne ke liye clarity chahiye, tobacco nahi.",
+      "Har urge par jeet, self-respect ka ek naya level kholti hai.",
+      "Aap kuch kho nahi rahe, aap health, paise aur respect wapas le rahe ho.",
+      "Ye uncomfortable feeling, body se poison nikalne ka proof hai.",
+      "Aapka real dushman stress nahi, galat solution hai.",
+      "Har clean din, future aapka shukriya ada karega."
+    ];
+
+    /* =========== Helpers =========== */
+    function switchTab(screenId, el) {
+      document.querySelectorAll(".screen").forEach(s => s.classList.remove("show"));
+      document.getElementById(screenId).classList.add("show");
+
+      document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active-tab"));
+      if (el) el.classList.add("active-tab");
+
+      updateStats();
+    }
+
+    function setFont(scale) {
+      document.documentElement.style.setProperty("--font-scale", scale);
+      localStorage.setItem(STORAGE_FONT, scale);
+    }
+
+    function setTheme(name) {
+      document.documentElement.classList.remove("theme-mint", "theme-sand", "theme-sky");
+      if (name === "mint") document.documentElement.classList.add("theme-mint");
+      if (name === "sand") document.documentElement.classList.add("theme-sand");
+      if (name === "sky") document.documentElement.classList.add("theme-sky");
+      localStorage.setItem(STORAGE_THEME, name);
+    }
+
+    function showRandomQuote(targetId) {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      const idx = Math.floor(Math.random() * QUOTES.length);
+      el.textContent = QUOTES[idx];
+    }
+
+    function showReminder() {
+      const toast = document.getElementById("reminderToast");
+      const text = document.getElementById("reminderText");
+      const idx = Math.floor(Math.random() * QUOTES.length);
+      text.textContent = QUOTES[idx];
+      toast.classList.add("show-toast");
+      setTimeout(() => {
+        toast.classList.remove("show-toast");
+      }, 8000);
+    }
+
+    function hideReminder() {
+      document.getElementById("reminderToast").classList.remove("show-toast");
+    }
+
+    function resetJourney() {
+      if (!confirm("Puri journey reset karni hai? Sare stats clear ho jayenge.")) return;
+      localStorage.removeItem(STORAGE_QUIT);
+      localStorage.removeItem(STORAGE_SPEND);
+      localStorage.removeItem(STORAGE_HEALTH);
+      localStorage.removeItem(STORAGE_URGES);
+      updateStats();
+      alert("Journey reset ho gayi. Aap hamesha dobara fresh start le sakte ho.");
+    }
+
+    /* =========== Stats =========== */
+    function updateStats() {
+      const quitDateStr = localStorage.getItem(STORAGE_QUIT);
+      const spend = Number(localStorage.getItem(STORAGE_SPEND) || 0);
+      const healthPerDay = Number(localStorage.getItem(STORAGE_HEALTH) || 60);
+      const urges = Number(localStorage.getItem(STORAGE_URGES) || 0);
+
+      document.getElementById("urgesWon").textContent = urges.toString();
+
+      if (!quitDateStr) {
+        currentDays = 0;
+        currentMoney = 0;
+        document.getElementById("dayLabel").textContent = "Day 0";
+        document.getElementById("daysFree").textContent = "0";
+        document.getElementById("healthHours").textContent = "0h";
+        document.getElementById("healthMinutes").textContent = "0m";
+        document.getElementById("moneySaved").textContent = "0";
+        document.getElementById("lastUpdated").textContent = "Set your quit date";
+        document.getElementById("streakCard").classList.remove("streak-glow");
+        return;
+      }
+
+      const qDate = new Date(quitDateStr + "T00:00:00");
+      const now = new Date();
+      let diffMs = now - qDate;
+      let days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      if (days < 0) days = 0;
+      currentDays = days;
+
+      const totalHealthMin = days * healthPerDay;
+      const hours = Math.floor(totalHealthMin / 60);
+      const mins = totalHealthMin % 60;
+
+      const money = days * spend;
+      currentMoney = money;
+
+      document.getElementById("dayLabel").textContent = "Day " + days;
+      document.getElementById("daysFree").textContent = days;
+      document.getElementById("healthHours").textContent = hours + "h";
+      document.getElementById("healthMinutes").textContent = mins + "m";
+      document.getElementById("moneySaved").textContent = money.toLocaleString("en-IN");
+
+      const lastUpdated = now.toLocaleString("en-IN", { hour12: false });
+      document.getElementById("lastUpdated").textContent = lastUpdated;
+
+      const streakCard = document.getElementById("streakCard");
+      if (days > 0) {
+        streakCard.classList.add("streak-glow");
+      } else {
+        streakCard.classList.remove("streak-glow");
+      }
+    }
+
+    function savePlan() {
+      const quitInput = document.getElementById("quitDate");
+      const spendInput = document.getElementById("dailySpend");
+      const healthInput = document.getElementById("healthPerDay");
+
+      if (quitInput.value) localStorage.setItem(STORAGE_QUIT, quitInput.value);
+      if (spendInput.value) localStorage.setItem(STORAGE_SPEND, spendInput.value);
+      if (healthInput.value) localStorage.setItem(STORAGE_HEALTH, healthInput.value);
+
+      updateStats();
+      alert("Plan saved! Aapki journey ab app yaad rakhega.");
+    }
+
+    function addUrgeWin() {
+      let urges = Number(localStorage.getItem(STORAGE_URGES) || 0);
+      urges += 1;
+      localStorage.setItem(STORAGE_URGES, urges);
+      document.getElementById("urgesWon").textContent = urges.toString();
+      showReminder();
+    }
+
+    function shareProgress() {
+      const days = currentDays;
+      const money = currentMoney;
+      const text = `I am tobacco-free for ${days} day(s) and have saved ₹${money.toLocaleString("en-IN")} so far. Proud of my progress.`;
+      const encoded = encodeURIComponent(text);
+      const url = `https://wa.me/?text=${encoded}`;
+      window.open(url, "_blank");
+    }
+
+    /* =========== Init =========== */
+    window.onload = () => {
+      const fs = localStorage.getItem(STORAGE_FONT);
+      const theme = localStorage.getItem(STORAGE_THEME);
+      if (fs) setFont(fs);
+      if (theme) setTheme(theme);
+
+      // If quit date already set, skip welcome to home
+      const existingQuit = localStorage.getItem(STORAGE_QUIT);
+      if (existingQuit) {
+        document.getElementById("welcomeScreen").classList.remove("show");
+        document.getElementById("homeScreen").classList.add("show");
+      }
+
+      updateStats();
+      showRandomQuote("dailyQuote");
+
+      // Periodic reminder every 90 seconds while app open
+      setInterval(() => {
+        showReminder();
+      }, 90000);
+    };
+
+    /* =========== Event Listeners =========== */
+    document.getElementById("startBtn").addEventListener("click", () => {
+      document.getElementById("welcomeScreen").classList.remove("show");
+      switchTab("homeScreen", document.querySelector('.nav-item[data-target="homeScreen"]'));
+    });
+
+    document.getElementById("savePlan").addEventListener("click", savePlan);
+
+    document.getElementById("urgeBtnHome").addEventListener("click", addUrgeWin);
+    document.getElementById("urgeBtn").addEventListener("click", addUrgeWin);
+
+    document.getElementById("newQuoteBtn").addEventListener("click", () => {
+      showRandomQuote("dailyQuote");
+    });
+
+    document.getElementById("shareBtn").addEventListener("click", shareProgress);
+  </script>
+</body>
+</html>
